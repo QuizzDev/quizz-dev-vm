@@ -1,0 +1,7 @@
+alias quizzUp='\
+    cd /var/www/quizz.local && \
+    composer install -n && \
+    app/console ca:cl && \
+    app/console d:m:m -n && \
+    cd -\
+'

@@ -1,0 +1,17 @@
+https://rogerhub.com/~r/code.rogerhub/infrastructure/474/signing-your-own-wildcard-sslhttps-certificates/
+
+private key for your certificate authority (CA):
+openssl genrsa -out rootCA.key 4096
+
+create a public CA certificate
+openssl req -x509 -new -nodes -key rootCA.key -days 9999 -out rootCA.pem
+
+
+Create a private key
+openssl genrsa -out quizz.key 4096
+
+Create a Certificate Signing Request
+openssl req -new -key quizz.key -out quizz.csr -config quizz.cnf
+
+generate your wildcard HTTPS certificate
+openssl x509 -req -days 9999 -in quizz.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -extensions v3_req -out quizz.crt -extfile quizz.cnf
